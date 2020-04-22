@@ -15,6 +15,8 @@ C:\Program Files\Python-3.7.6>git clone https://github.com/tomoemagica/colorcorr
 
 cd colorcorrect
 
+pip install -r requires.txt
+
 mkdir build
 
 cd build
