@@ -5,8 +5,6 @@ README
 VERSION
 setup.cfg
 setup.py
-cutil\cutil.cpp
-cutil\cutil.hpp
 src\colorcorrect\__init__.py
 src\colorcorrect\algorithm.py
 src\colorcorrect\util.py

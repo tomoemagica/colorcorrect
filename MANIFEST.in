@@ -1,2 +1,1 @@
 include README MANIFEST.in VERSION LICENSE
-recursive-include cutil *.cpp *.hpp
