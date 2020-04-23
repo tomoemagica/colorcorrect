@@ -1,10 +1,10 @@
 Metadata-Version: 1.0
 Name: colorcorrect
-Version: 0.9
+Version: 1.0.0
 Summary: imprement some of color correction algorithms
-Home-page: http://www.bitbucket.org/aihara/colorcorrect
-Author: Shunsuke Aihara
-Author-email: s.aihara@gmail.com
+Home-page: https://github.com/tomoemagica/colorcorrect
+Author: Tomoe Magica
+Author-email: tomoe.magica@gmail.com
 License: MIT License
 Description: colorcorrect
         by Shunsuke Aihara - http://argmax.jp
