@@ -1,48 +1,10 @@
 # -*- coding: utf-8 -*-
 from __future__ import division
 import numpy as np
-from ctypes import POINTER
-from ctypes import pointer
-from ctypes import Structure
-from ctypes import c_ubyte
-from ctypes import c_int
-from ctypes import c_double
-from ctypes import c_void_p
 from six.moves import range
 from six.moves import xrange
 
 import os
-
-def initfunc_name(name):
-    try:
-        suffix = b'_' + name.encode('ascii')
-    except UnicodeEncodeError:
-        suffix = b'U_' + name.encode('punycode').replace(b'-', b'_')
-    return b'PyInit' + suffix
-
-cutilfolder = os.path.abspath(__file__).rsplit(os.path.sep, 1)[0]
-cutilname = "_cutil"
-libcutil = np.ctypeslib.load_library(cutilname, cutilfolder)
-
-
-class RGBImage(Structure):
-    _fields_ = [
-        ("width", c_int),
-        ("height", c_int),
-        ("r", POINTER(c_ubyte)),
-        ("g", POINTER(c_ubyte)),
-        ("b", POINTER(c_ubyte)),
-    ]
-
-
-libcutil.calc_sdwgw.argtypes = [POINTER(RGBImage), c_int, c_int]
-libcutil.calc_sdwgw.restype = c_void_p
-libcutil.calc_sdlwgw.argtypes = [POINTER(RGBImage), c_int, c_int]
-libcutil.calc_sdlwgw.restype = c_void_p
-libcutil.calc_lwgw.argtypes = [POINTER(RGBImage), c_int, c_int]
-libcutil.calc_lwgw.restype = c_void_p
-libcutil.delete_doubleptr.argtypes = [c_void_p]
-libcutil.calc_ace.argtypes = [POINTER(RGBImage), c_int, c_double, c_double]
 
 
 def stretch_pre(nimg):
@@ -56,7 +18,7 @@ def stretch_pre(nimg):
     return nimg.transpose(1, 2, 0)
 
 
-def grey_world(nimg):
+def gray_world(nimg):
     nimg = nimg.transpose(2, 0, 1).astype(np.uint32)
     mu_g = np.average(nimg[1])
     nimg[0] = np.minimum(nimg[0] * (mu_g / np.average(nimg[0])), 255)
