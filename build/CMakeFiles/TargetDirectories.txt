@@ -1,2 +1,0 @@
-C:/Program Files/Python-3.7.6/colorcorrect/build/CMakeFiles/ALL_BUILD.dir
-C:/Program Files/Python-3.7.6/colorcorrect/build/CMakeFiles/ZERO_CHECK.dir
