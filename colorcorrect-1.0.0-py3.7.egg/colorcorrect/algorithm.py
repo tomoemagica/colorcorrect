@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import division
-import numpy as np
+# import numpy as np
+import cupy as np
 import ctypes.util
 import ctypes
 from ctypes import POINTER
@@ -13,6 +14,7 @@ from ctypes import c_void_p
 from ctypes import *
 from six.moves import range
 from six.moves import xrange
+import cv2
 
 import os
 cutilfolder = os.path.abspath(__file__).rsplit(os.path.sep, 1)[0]
@@ -87,3 +89,21 @@ def automatic_color_equalization(nimg, slope=10, limit=1000, samples=500):
                    nimg[2].ctypes.data_as(POINTER(c_ubyte)))
     libcutil.calc_ace(pointer(img), samples, slope, limit)
     return nimg.transpose(1, 2, 0)
+
+
+def clahe(img):
+    img_yuv = cv2.cvtColor(img, cv2.COLOR_BGR2YUV)
+    clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(2,2))
+    img_yuv[:,:,0] = clahe.apply(img_yuv[:,:,0])
+    nimg = cv2.cvtColor(img_yuv, cv2.COLOR_YUV2BGR)
+    return nimg
+
+
+def white_balance(img):
+    result = cv2.cvtColor(img, cv2.COLOR_BGR2LAB)
+    avg_a = np.average(result[:, :, 1])
+    avg_b = np.average(result[:, :, 2])
+    result[:, :, 1] = result[:, :, 1] - ((avg_a - 128) * (result[:, :, 0] / 255.0) * 1.1)
+    result[:, :, 2] = result[:, :, 2] - ((avg_b - 128) * (result[:, :, 0] / 255.0) * 1.1)
+    result = cv2.cvtColor(result, cv2.COLOR_LAB2BGR)
+    return result
